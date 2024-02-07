@@ -34,7 +34,7 @@ public class Main {
                         break;
                     case 2:
                         System.out.println("Has triat donar d’alta nou mecànic....");
-                        //insert code here
+
                         break;
                     case 3:
                         System.out.println("Has triat introduir nou vehicle....");
@@ -57,6 +57,33 @@ public class Main {
             System.out.println("");
 
         }while(menuItem!=5);
+
+    }
+
+
+    /**
+     *
+     */
+    public static void altaMeca() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int sum = 0;
+
+        // Creació de l'array de les dades dels mecànics
+        String[][] dadesMecanic = new String[100][3];
+
+        System.out.println("\nA continuació, hauràs d'introduïr les següents dades:");
+        System.out.println("#1 - El codi de l'empleat (6 enters del 0 al 9).");
+        System.out.println("#2 - El nom de l'empleat");
+        System.out.println("# - Si està lliure (escriu \"lliure\") o ocupat (escriu \"ocupat\")");
+
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Introdueix la dada #" + (i + 1) + ":" );
+            dadesMecanic [sum][i] = scanner.nextLine();
+
+            ++sum;
+        }
 
     }
 
