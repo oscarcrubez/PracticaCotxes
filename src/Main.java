@@ -35,6 +35,8 @@ public class Main {
                     case 2:
                         System.out.println("Has triat donar d’alta nou mecànic....");
 
+                        altaMeca();
+
                         break;
                     case 3:
                         System.out.println("Has triat introduir nou vehicle....");
@@ -73,16 +75,33 @@ public class Main {
         // Creació de l'array de les dades dels mecànics
         String[][] dadesMecanic = new String[100][3];
 
-        System.out.println("\nA continuació, hauràs d'introduïr les següents dades:");
-        System.out.println("#1 - El codi de l'empleat (6 enters del 0 al 9).");
-        System.out.println("#2 - El nom de l'empleat");
-        System.out.println("# - Si està lliure (escriu \"lliure\") o ocupat (escriu \"ocupat\")");
+        while (true) {
 
-        for (int i = 0; i < 3; i++) {
-            System.out.println("Introdueix la dada #" + (i + 1) + ":" );
-            dadesMecanic [sum][i] = scanner.nextLine();
+            // Saber si l'array de mecànics està plè
+            if (sum > 100) {
+                System.out.println("Ja has omplert el nombre màxim d'empleats.");
+                break;
+            }
 
-            ++sum;
+            System.out.println("Introdueix el codi de l'empleat (6 enters del 0 al 9):");
+            dadesMecanic [sum][0] = scanner.nextLine();
+
+            System.out.println("Introdueix el nom de l'empleat:");
+            dadesMecanic [sum][1] = scanner.nextLine();
+
+            System.out.println("Introdueix si està lliure (escriu \"lliure\") o ocupat (escriu \"ocupat\")");
+            dadesMecanic [sum][2] = scanner.nextLine();
+
+            System.out.println("\nEmpleat introduït correctament. Les seves dades són les següents\n");
+
+            System.out.println("Codi: " + dadesMecanic [sum][0]);
+            System.out.println("Nom: " + dadesMecanic [sum][1]);
+            System.out.println("Disponibilitat: " + dadesMecanic [sum][2]);
+            System.out.println(" ");
+
+
+            sum++; // Sumatori que ens permet guardar els diferents empleats en diferents arrays (primer índex de la matriu)
+
         }
 
     }
