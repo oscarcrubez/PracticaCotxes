@@ -10,8 +10,8 @@ public class Main {
 
         Main main = new Main();
         main.init();
+         
     }
-
 
 
     public void init(){
@@ -59,6 +59,42 @@ public class Main {
         }while(menuItem!=5);
 
     }
+
+    public static String[][] case1(int num){
+        Scanner escanner = new Scanner(System.in);
+
+        String[][] client = new String[100][2];
+        boolean rep = true;
+
+        for (int i=0; i<100; i++){
+            if (client[i][0] == null && client[i][1] == null){
+                do{
+                    System.out.println("Introdueix el DNI del client:");
+                    client[i][0] = escanner.next();
+
+                    for (int j=0; j<100; j++){
+                        if (client[j][0].equals(client[i][0])){
+                            rep = false;
+                            break;
+                        }
+                    }
+
+                }while (!rep);
+
+
+                do{
+                    System.out.println("Introdueix el nom del client:");
+                    client[i][1] = escanner.next();
+                }while (client[i][1].isEmpty());
+
+                break;
+            }
+
+        }
+
+        return client;
+    }
+
 
     //insert code here
 
