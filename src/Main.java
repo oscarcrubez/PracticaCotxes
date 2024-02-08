@@ -71,11 +71,16 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         int sum = 0;
+        int opcioNou = 0;
+        String nomMeca;
+        String codiMeca;
+        String dispoMeca;
+        boolean matched = false;
 
         // Creació de l'array de les dades dels mecànics
         String[][] dadesMecanic = new String[100][3];
 
-        while (true) {
+        do {
 
             // Saber si l'array de mecànics està plè
             if (sum > 100) {
@@ -83,26 +88,52 @@ public class Main {
                 break;
             }
 
-            System.out.println("Introdueix el codi de l'empleat (6 enters del 0 al 9):");
-            dadesMecanic [sum][0] = scanner.nextLine();
+            // Bucle per a control d'error: codi d'empleat ja existent
+            do {
+
+                System.out.println("Introdueix el codi de l'empleat (6 enters del 0 al 9):");
+                codiMeca = scanner.nextLine();
+
+                matched = false;
+
+                if (sum > 1) {
+                    for (int i = 0; i < sum; i++) {
+                        matched = codiMeca.matches(dadesMecanic[sum - 1][0]);
+                    }
+
+                    if (matched = true) {
+                        System.out.println("\nERROR. Aquest codi ja existeix.\n");
+                    }
+                }
+                break;
+
+            } while (matched = true);
 
             System.out.println("Introdueix el nom de l'empleat:");
-            dadesMecanic [sum][1] = scanner.nextLine();
+            nomMeca = scanner.nextLine();
 
             System.out.println("Introdueix si està lliure (escriu \"lliure\") o ocupat (escriu \"ocupat\")");
-            dadesMecanic [sum][2] = scanner.nextLine();
+            dispoMeca = scanner.nextLine();
 
-            System.out.println("\nEmpleat introduït correctament. Les seves dades són les següents\n");
+            // Omplir l'array amb les dades dels mecànics
+            dadesMecanic [sum][0] = codiMeca;
+            dadesMecanic [sum][1] = nomMeca;
+            dadesMecanic [sum][2] = dispoMeca;
 
-            System.out.println("Codi: " + dadesMecanic [sum][0]);
-            System.out.println("Nom: " + dadesMecanic [sum][1]);
-            System.out.println("Disponibilitat: " + dadesMecanic [sum][2]);
-            System.out.println(" ");
+            // Confirmació de dades
+            System.out.println("\n*** Empleat introduït correctament ***\nLes seves dades són les següents:\n");
 
+            System.out.println("Codi: " + codiMeca);
+            System.out.println("Nom: " + nomMeca);
+            System.out.println("Disponibilitat: " + dispoMeca);
 
             sum++; // Sumatori que ens permet guardar els diferents empleats en diferents arrays (primer índex de la matriu)
 
-        }
+            // Obtenció de valor per repetir o no tot el procés
+            System.out.println("\nSi vols introduïr un altre mecànic, escriu [1]. Per tornar al menú principal, escriu [2]");
+            opcioNou = scanner.nextInt();
+
+        } while (opcioNou == 1);
 
     }
 
