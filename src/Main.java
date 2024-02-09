@@ -9,7 +9,6 @@ public class Main {
     public static void main(String[] args) {
 
 
-
         Main main = new Main();
         main.init();
          
@@ -35,14 +34,12 @@ public class Main {
                 switch (menuItem){
                     case 1:
                         System.out.println("Has triat donar d’alta nou client....");
-
                         String[][] client1= case1(client);
+
                         for (int i=0; i<100; i++){
                             for (int j=0; j<2; j++){
-                                System.out.print(client1[i][j] + "   ");
                                 client[i][j] = client1[i][j];
                             }
-                            System.out.println();
                         }
 
                         //insert code here
@@ -84,7 +81,7 @@ public class Main {
 
                 do{
                     System.out.println("Introdueix el DNI del client:");
-                    client[i][0] = escanner.next();
+                    client[i][0] = escanner.nextLine();
 
                     if (i != 0){
                         for (int j=0; j<100; j++){
@@ -102,7 +99,7 @@ public class Main {
 
                 do{
                     System.out.println("Introdueix el nom del client:");
-                    client[i][1] = escanner.next();
+                    client[i][1] = escanner.nextLine();
                 }while (client[i][1].isEmpty());
 
                 break;
