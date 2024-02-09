@@ -8,6 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+
+
         Main main = new Main();
         main.init();
          
@@ -16,6 +18,9 @@ public class Main {
 
     public void init(){
         int menuItem = 0;
+
+        String[][] client = new String[100][2];
+
         do {
             System.out.println("TALLER DE REPARACIÓ DE VEHICLES");
             System.out.println("[1] Donar d’alta nou client");
@@ -30,6 +35,16 @@ public class Main {
                 switch (menuItem){
                     case 1:
                         System.out.println("Has triat donar d’alta nou client....");
+
+                        String[][] client1= case1(client);
+                        for (int i=0; i<100; i++){
+                            for (int j=0; j<2; j++){
+                                System.out.print(client1[i][j] + "   ");
+                                client[i][j] = client1[i][j];
+                            }
+                            System.out.println();
+                        }
+
                         //insert code here
                         break;
                     case 2:
@@ -60,27 +75,30 @@ public class Main {
 
     }
 
-    public static String[][] case1(int num){
+    public static String[][] case1(String[][] client){
         Scanner escanner = new Scanner(System.in);
-
-        String[][] client = new String[100][2];
         boolean rep = true;
 
         for (int i=0; i<100; i++){
             if (client[i][0] == null && client[i][1] == null){
+
                 do{
                     System.out.println("Introdueix el DNI del client:");
                     client[i][0] = escanner.next();
 
-                    for (int j=0; j<100; j++){
-                        if (client[j][0].equals(client[i][0])){
-                            rep = false;
-                            break;
+                    if (i != 0){
+                        for (int j=0; j<100; j++){
+                            if (client[j][0].equals(client[i][0])){
+                                rep = false;
+                                break;
+                            }else if (i-1 == j){
+                                rep =true;
+                                break;
+                            }
                         }
                     }
 
                 }while (!rep);
-
 
                 do{
                     System.out.println("Introdueix el nom del client:");
