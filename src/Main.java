@@ -19,6 +19,7 @@ public class Main {
         int menuItem = 0;
 
         String[][] client = new String[100][2];
+        String[][] vehicle = new String[100][3];
 
         do {
             System.out.println("TALLER DE REPARACIÓ DE VEHICLES");
@@ -42,7 +43,6 @@ public class Main {
                             }
                         }
 
-                        //insert code here
                         break;
                     case 2:
                         System.out.println("Has triat donar d’alta nou mecànic....");
@@ -50,7 +50,15 @@ public class Main {
                         break;
                     case 3:
                         System.out.println("Has triat introduir nou vehicle....");
-                        //insert code here
+
+                        String[][] vehicle1= case3(vehicle, client);
+
+                        for (int i=0; i<100; i++){
+                            for (int j=0; j<3; j++){
+                                vehicle[i][j] = vehicle1[i][j];
+                            }
+                        }
+
                         break;
                     case 4:
                         System.out.println("Has triat crear fitxa de nova reparació....");
@@ -114,6 +122,7 @@ public class Main {
     public static String[][] case3(String[][] vehicle, String[][] client) {
         Scanner escanner = new Scanner(System.in);
         boolean rep = true;
+        int limit = 0;
 
         for (int i = 0; i < 100; i++){
             if (client[i][0] == null){
@@ -121,41 +130,51 @@ public class Main {
             }else{
                 System.out.println((i+1)+ ": " + client[i][0]);
             }
+            limit = i+1;
         }
 
-        System.out.println("Si está en esta lista, seleccione su DNI con el código proporcionado.");
-        System.out.println("En caso contrario, pulse cualquier tecla para volver al menú e insertar un usuario");
 
-        String dni = escanner.nextLine();
+        System.out.println("Si està en aquesta llista, seleccioni el seu DNI amb el codi proporcionat.");
+        System.out.println("En cas contrari, premi cualsevol tecla per tornar al menú i insertar un usuari");
 
-        for (int i = 0; i < 100; i++) {
-            if (vehicle[i][0] == null && vehicle[i][1] == null && vehicle[i][2] == null) {
-                do{
-                    System.out.println("Introdueix la matrícula del vehicle:");
-                    vehicle[i][0] = escanner.nextLine();
+        boolean valorCorrecte= escanner.hasNextInt();
 
-                    if (i != 0){
-                        for (int j=0; j<100; j++){
-                            if (vehicle[j][0].equals(vehicle[i][0])){
-                                System.out.println("Aquesta matrícula ja existeix");
-                                rep = false;
-                                break;
-                            }else if (i-1 == j){
-                                rep =true;
-                                break;
+        if (valorCorrecte){
+            int ndni = escanner.nextInt();
+
+            if (ndni > 0 && ndni <= limit){
+
+                for (int i = 0; i < 100; i++) {
+                    if (vehicle[i][0] == null && vehicle[i][1] == null && vehicle[i][2] == null) {
+                        do{
+                            System.out.println("Introdueix la matrícula del vehicle:");
+                            vehicle[i][0] = escanner.nextLine();
+
+                            if (i != 0){
+                                for (int j=0; j<100; j++){
+                                    if (vehicle[j][0].equals(vehicle[i][0])){
+                                        System.out.println("Aquesta matrícula ja existeix");
+                                        rep = false;
+                                        break;
+                                    }else if (i-1 == j){
+                                        rep =true;
+                                        break;
+                                    }
+                                }
                             }
-                        }
+                        }while (!rep || vehicle[i][0].isEmpty());
+
+                        do{
+                            System.out.println("Introdueix el model del vehicle:");
+                            vehicle[i][1] = escanner.nextLine();
+                        }while (vehicle[i][1].isEmpty());
+
+
+                        vehicle[i][2] = client[ndni-1][0];
+
+                        break;
                     }
-                }while (!rep || vehicle[i][0].isEmpty());
-
-                do{
-                    System.out.println("Introdueix el model del vehicle:");
-                    vehicle[i][1] = escanner.nextLine();
-                }while (vehicle[i][1].isEmpty());
-
-
-                int dniv = Integer.parseInt(dni);
-                vehicle[i][2] = client[dniv-1][0];
+                }
 
             }
         }
