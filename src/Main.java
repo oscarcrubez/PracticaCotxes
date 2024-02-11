@@ -59,7 +59,10 @@ public class Main {
                         break;
                     case 4:
                         System.out.println("Has triat crear fitxa de nova reparació....");
-                        //insert code here
+
+                        String[][] reparacions = new String[100][3];
+
+
                         break;
                     case 5:
                         System.out.println("Sortint....");
@@ -134,7 +137,71 @@ public class Main {
 
     }
 
-    public static void novaRep() {
+    public static void novaRep(String[][] reparacions, String[][] vehicle, String[][] mecanics) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        boolean rep = false;
+        boolean valorCorrecte;
+        int numLlistaMat;
+        boolean aiuda = false;
+        int limit = 0;
+
+        for (int i = 0; i < 100; i++) {
+
+            if (vehicle[i][0] == null) {
+                break;
+            } else {
+                System.out.println((i + 1) + ": " + vehicle[i][0]);
+
+                limit = i + 1;
+            }
+
+        }
+
+        System.out.println("Si la matrícula es troba a la llista, introdueix el número associat.");
+        System.out.println("Si la matrícula no es troba a la llista, torna al menú principal pitjant qualsevol tecla i selecciona l'opció: Introduïr nou vehicle.");
+
+        valorCorrecte = scanner.hasNextInt();
+
+        if (valorCorrecte) {
+
+            numLlistaMat = scanner.nextInt();
+
+            if (numLlistaMat > 0 && numLlistaMat <= limit) {
+
+                for (int i = 0; i < 100; i++) {
+
+                    if (reparacions[i][0] != null) {
+
+                        reparacions[i][0] = vehicle[numLlistaMat - 1][0];
+
+                        for (int j = 0; j < 100; j++) {
+
+                            if (mecanics[j][2] == "lliure") {
+
+                                reparacions[i][1] = mecanics[j][0];
+                                reparacions[i][2] = "En curs";
+
+                                aiuda = true;
+                                break;
+                            }
+
+                        }
+
+                        if (!aiuda) {
+                            reparacions[i][2] = "Oberta";
+                        }
+
+                        break;
+                    }
+
+
+                }
+
+            }
+
+        }
 
 
 
