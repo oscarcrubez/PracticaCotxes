@@ -85,26 +85,14 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        int sum = 0;
-        int opcioNou;
-        String nomMeca;
-        String codiMeca;
-        String dispoMeca;
-        boolean rep = true;
 
-        // Creació de l'array de les dades dels mecànics
-        dadesMecanic = new String[100][3];
+        int opcioNou;
+        boolean rep = true;
 
         do {
 
-            // Saber si l'array de mecànics està plè
-            if (sum > 100) {
-                System.out.println("Ja has omplert el nombre màxim d'empleats.");
-                break;
-            }
-
             // Bucle per a control d'error: codi d'empleat ja existent
-            for (int i=0; i<100; i++) {
+            for (int i = 0; i < 100; i++) {
                 if (dadesMecanic[i][0] == null && dadesMecanic[i][1] == null) {
 
                     do {
@@ -146,6 +134,11 @@ public class Main {
 
     }
 
+    public static void novaRep() {
+
+
+
+    }
     //insert code here
 
 }
