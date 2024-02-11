@@ -4,8 +4,6 @@ public class Main {
 
     Scanner input = new Scanner(System.in);
 
-
-
     public static void main(String[] args) {
 
 
@@ -40,6 +38,7 @@ public class Main {
                         for (int i=0; i<100; i++){
                             for (int j=0; j<2; j++){
                                 client[i][j] = client1[i][j];
+
                             }
                         }
 
@@ -147,17 +146,17 @@ public class Main {
                 for (int i = 0; i < 100; i++) {
                     if (vehicle[i][0] == null && vehicle[i][1] == null && vehicle[i][2] == null) {
                         do{
-                            System.out.println("Introdueix la matrícula del vehicle:");
+                            System.out.print("Introdueix la matrícula del vehicle:");
                             vehicle[i][0] = escanner.nextLine();
 
-                            if (i != 0){
-                                for (int j=0; j<100; j++){
-                                    if (vehicle[j][0].equals(vehicle[i][0])){
+                            if (i != 0) {
+                                for (int j = 0; j < 100; j++) {
+                                    if (vehicle[j][0].equals(vehicle[i][0])) {
                                         System.out.println("Aquesta matrícula ja existeix");
                                         rep = false;
                                         break;
-                                    }else if (i-1 == j){
-                                        rep =true;
+                                    } else if (i - 1 == j) {
+                                        rep = true;
                                         break;
                                     }
                                 }
