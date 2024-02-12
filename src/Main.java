@@ -177,7 +177,6 @@ public class Main {
 
             }
         }
-
         return vehicle;
     }
 }
