@@ -50,17 +50,12 @@ public class Main {
                     case 2:
                         System.out.println("Has triat donar d’alta nou mecànic....");
 
-                        String [][] mecanics1 = altaMeca(mecanics);
-
-                        System.out.println("Dades dels empleats existents:\n");
+                        String [][] mecanics1 = case2(mecanics);
 
                         for (int i = 0; i < 100; i++) {
                             for (int j = 0; j < 3; j++) {
-
-                                    System.out.print(mecanics1[i][j] + "   ");
                                     mecanics [i][j] = mecanics1 [i][j];
                             }
-                            System.out.println();
                         }
 
                         break;
@@ -79,15 +74,15 @@ public class Main {
                     case 4:
                         System.out.println("Has triat crear fitxa de nova reparació....");
 
-                        String[][] reparacions1 = new String[100][3];
+                        String[][] reparacions1 = case4(reparacions, vehicle, mecanics);
 
                         for (int i = 0; i < 100; i++) {
                             for (int j = 0; j < 3; j++) {
-
-                                System.out.print(reparacions1[i][j] + "   ");
                                 reparacions [i][j] = reparacions1 [i][j];
+                                if (reparacions[i][j] != null){
+                                    System.out.println(reparacions[i][j] + "   ");
+                                }
                             }
-                            System.out.println();
                         }
 
                         break;
@@ -101,7 +96,7 @@ public class Main {
                 System.out.println("Opció no vàlida");
             }
             input.nextLine();
-            System.out.println("");
+            System.out.println();
 
         }while(menuItem!=5);
 
@@ -109,10 +104,52 @@ public class Main {
 
 
 
+    public static String[][] case1(String[][] client){
+        Scanner escanner = new Scanner(System.in);
+        boolean rep = true;
+
+
+        for (int i=0; i<100; i++){
+            if (client[i][0] == null && client[i][1] == null){
+
+                do{
+                    System.out.println("Introdueix el DNI del client:");
+                    client[i][0] = escanner.nextLine();
+
+                    if (i != 0){
+                        for (int j=0; j<100; j++){
+                            if (client[j][0].equals(client[i][0])){
+                                System.out.println("Aquest usuari ja existeix");
+                                rep = false;
+                                break;
+                            }else if (i-1 == j){
+                                rep =true;
+                                break;
+                            }
+                        }
+                    }
+
+                }while (!rep);
+
+                do{
+                    System.out.println("Introdueix el nom del client:");
+                    client[i][1] = escanner.nextLine();
+                }while (client[i][1].isEmpty());
+
+                break;
+            }
+
+        }
+
+        return client;
+    }
+
+
+
     /**
      * @return l'array amb les dades dels mecànics
      */
-    public static String[][] altaMeca(String[][] dadesMecanic) {
+    public static String[][] case2(String[][] dadesMecanic) {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -165,118 +202,6 @@ public class Main {
 
     }
 
-    public static String[][] novaRep(String[][] novesRep, String[][] vehicle, String[][] mecanics) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        boolean rep = false;
-        boolean valorCorrecte;
-        int numLlistaMat;
-        boolean dispoMeca = false;
-        int limit = 0;
-
-        for (int i = 0; i < 100; i++) {
-
-            if (vehicle[i][0] == null) {
-                break;
-            } else {
-                System.out.println((i + 1) + ": " + vehicle[i][0]);
-
-                limit = i + 1;
-            }
-
-        }
-
-        System.out.println("Si la matrícula es troba a la llista, introdueix el número associat.");
-        System.out.println("Si la matrícula no es troba a la llista, torna al menú principal pitjant qualsevol tecla i selecciona l'opció: Introduïr nou vehicle.");
-
-        valorCorrecte = scanner.hasNextInt();
-
-        if (valorCorrecte) {
-
-            numLlistaMat = scanner.nextInt();
-
-            if (numLlistaMat > 0 && numLlistaMat <= limit) {
-
-                for (int i = 0; i < 100; i++) {
-
-                    if (novesRep[i][0] != null) {
-
-                        novesRep[i][0] = vehicle[numLlistaMat - 1][0];
-
-                        for (int j = 0; j < 100; j++) {
-
-                            if (mecanics[j][2] == "lliure") {
-
-                                novesRep[i][1] = mecanics[j][0];
-                                novesRep[i][2] = "En curs";
-
-                                mecanics[j][2] = "ocupat";
-
-                                dispoMeca = true;
-                                break;
-                            }
-
-                        }
-
-                        if (!dispoMeca) {
-                            novesRep[i][2] = "Oberta";
-                        }
-
-                        break;
-                    }
-
-
-                }
-
-            }
-
-        }
-
-        return novesRep;
-
-    }
-    //insert code here
-
-    public static String[][] case1(String[][] client){
-        Scanner escanner = new Scanner(System.in);
-        boolean rep = true;
-
-
-        for (int i=0; i<100; i++){
-            if (client[i][0] == null && client[i][1] == null){
-
-                do{
-                    System.out.println("Introdueix el DNI del client:");
-                    client[i][0] = escanner.nextLine();
-
-                    if (i != 0){
-                        for (int j=0; j<100; j++){
-                            if (client[j][0].equals(client[i][0])){
-                                System.out.println("Aquest usuari ja existeix");
-                                rep = false;
-                                break;
-                            }else if (i-1 == j){
-                                rep =true;
-                                break;
-                            }
-                        }
-                    }
-
-                }while (!rep);
-
-                do{
-                    System.out.println("Introdueix el nom del client:");
-                    client[i][1] = escanner.nextLine();
-                }while (client[i][1].isEmpty());
-
-                break;
-            }
-
-        }
-
-        return client;
-    }
 
     public static String[][] case3(String[][] vehicle, String[][] client) {
         Scanner escanner = new Scanner(System.in);
@@ -306,8 +231,9 @@ public class Main {
                 for (int i = 0; i < 100; i++) {
                     if (vehicle[i][0] == null && vehicle[i][1] == null && vehicle[i][2] == null) {
                         do{
-                            System.out.print("Introdueix la matrícula del vehicle:");
+                            System.out.println("Introdueix la matrícula del vehicle:");
                             vehicle[i][0] = escanner.nextLine();
+
 
                             if (i != 0) {
                                 for (int j = 0; j < 100; j++) {
@@ -339,4 +265,80 @@ public class Main {
         }
         return vehicle;
     }
+
+
+    public static String[][] case4(String[][] novesRep, String[][] vehicle, String[][] mecanics) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        boolean rep = false;
+        boolean valorCorrecte;
+        int numLlistaMat;
+        boolean dispoMeca = false;
+        int limit = 0;
+
+        for (int i = 0; i < 100; i++) {
+
+            if (vehicle[i][0] == null) {
+                break;
+            } else {
+                System.out.println((i + 1) + ": " + vehicle[i][0]);
+                limit = i + 1;
+            }
+
+        }
+
+        System.out.println("Si la matrícula es troba a la llista, introdueix el número associat.");
+        System.out.println("Si la matrícula no es troba a la llista, torna al menú principal pitjant qualsevol tecla i selecciona l'opció: Introduïr nou vehicle.");
+
+        valorCorrecte = scanner.hasNextInt();
+
+        if (valorCorrecte) {
+
+            numLlistaMat = scanner.nextInt();
+
+            if (numLlistaMat > 0 && numLlistaMat <= limit) {
+
+                for (int i = 0; i < 100; i++) {
+
+                    if (novesRep[i][0] == null) {
+
+                        novesRep[i][0] = vehicle[numLlistaMat - 1][0];
+
+                        for (int j = 0; j < 100; j++) {
+
+                            if (mecanics[j][2].equals("lliure")) {
+
+                                novesRep[i][1] = mecanics[j][0];
+                                novesRep[i][2] = "En curs";
+
+                                mecanics[j][2] = "ocupat";
+
+                                dispoMeca = true;
+                                break;
+                            }
+
+                        }
+
+                        if (!dispoMeca) {
+                            novesRep[i][2] = "Oberta";
+                        }
+
+                        break;
+                    }
+
+                }
+
+            }
+
+        }
+
+        return novesRep;
+
+    }
+    //insert code here
+
+
+
+
 }
