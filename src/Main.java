@@ -1,3 +1,14 @@
+
+/*
+INTEGRANTS DEL GRUP:
+Santiago Fernández-Pedrera López
+Òscar Cruañas Gonzalbez
+
+ENLLAÇ AL REPOSITORI:
+https://github.com/oscarcrubez/PracticaCotxes.git
+ */
+
+
 import java.util.Scanner;
 
 public class Main {
