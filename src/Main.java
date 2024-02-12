@@ -18,15 +18,16 @@ public class Main {
      */
     public void init(){
         int menuItem = 0;
-        int sum = 0;
 
-        String [][] mecanics = new String[100][3];
-        String [][] reparacions = new String[100][3];
-
-        String[][] client = new String[100][2];
-        String[][] vehicle = new String[100][3];
+        // Definir les matrius necessàries per guardar totes les dades.
+        String [][] mecanics = new String[100][3]; // Matriu per les dades dels empleats donats d'alta.
+        String [][] reparacions = new String[100][3]; // Matriu per les dades de les noves reparacions.
+        String[][] client = new String[100][2]; // Matriu per les dades dels clients.
+        String[][] vehicle = new String[100][3]; // Matriu per les dades dels vehicles donats d'alta.
 
         do {
+
+            // Menú principal.
             System.out.println("TALLER DE REPARACIÓ DE VEHICLES");
             System.out.println("[1] Donar d’alta nou client");
             System.out.println("[2] Donar d’alta nou mecànic");
@@ -42,6 +43,7 @@ public class Main {
                         System.out.println("Has triat donar d’alta nou client....");
                         String[][] client1= case1(client);
 
+                        // Bucle per representar les dades dels clients existents.
                         for (int i=0; i<100; i++){
                             for (int j=0; j<2; j++){
                                 client[i][j] = client1[i][j];
@@ -53,17 +55,13 @@ public class Main {
                     case 2:
                         System.out.println("Has triat donar d’alta nou mecànic....");
 
-                        String [][] mecanics1 = altaMeca(mecanics);
+                        String [][] mecanics1 = case2(mecanics);
 
-                        System.out.println("Dades dels empleats existents:\n");
-
+                        // Bucle per representar les dades dels empleats donats d'alta.
                         for (int i = 0; i < 100; i++) {
                             for (int j = 0; j < 3; j++) {
-
-                                    System.out.print(mecanics1[i][j] + "   ");
                                     mecanics [i][j] = mecanics1 [i][j];
                             }
-                            System.out.println();
                         }
 
                         break;
@@ -72,6 +70,7 @@ public class Main {
 
                         String[][] vehicle1= case3(vehicle, client);
 
+                        // Bucle per representar les dades dels vehicles donats d'alta.
                         for (int i=0; i<100; i++){
                             for (int j=0; j<3; j++){
                                 vehicle[i][j] = vehicle1[i][j];
@@ -82,15 +81,16 @@ public class Main {
                     case 4:
                         System.out.println("Has triat crear fitxa de nova reparació....");
 
-                        String[][] reparacions1 = new String[100][3];
+                        String[][] reparacions1 = case4(reparacions, vehicle, mecanics);
 
+                        // Bucle per representar les dades de les reparacions.
                         for (int i = 0; i < 100; i++) {
                             for (int j = 0; j < 3; j++) {
-
-                                System.out.print(reparacions1[i][j] + "   ");
                                 reparacions [i][j] = reparacions1 [i][j];
+                                if (reparacions[i][j] != null){
+                                    System.out.println(reparacions[i][j] + "   ");
+                                }
                             }
-                            System.out.println();
                         }
 
                         break;
@@ -104,29 +104,27 @@ public class Main {
                 System.out.println("Opció no vàlida");
             }
             input.nextLine();
-            System.out.println("");
+            System.out.println();
 
         }while(menuItem!=5);
 
     }
 
-
-
     /**
      * Aquest mètode serveix per donar d'alta nous empleats (mecànics),
      * serveix per guardar les dades necessàries de cada mecànic.
      *
-     * @param dadesMecanic
+     * @param dadesMecanic array per guardar les dades dels mecànics.
      *
      * @return l'array amb les dades dels mecànics (nº d'empleat, nom i disponibilitat).
      */
-    public static String[][] altaMeca(String[][] dadesMecanic) {
+    public static String[][] case2(String[][] dadesMecanic) {
 
         Scanner scanner = new Scanner(System.in);
 
 
-        int opcioNou;
-        boolean rep = true;
+        int opcioNou; // Variable per tornar a introduïr mecànic sense tornar al menú principal.
+        boolean rep = true; // Variable booleana per comprovar que no es repeteix el codi de l'empleat.
 
         do {
 
@@ -134,6 +132,7 @@ public class Main {
             for (int i = 0; i < 100; i++) {
                 if (dadesMecanic[i][0] == null && dadesMecanic[i][1] == null) {
 
+                    // Bucle per introduïr el codi de l'empleat sempre que aquest no existeixi prèviament.
                     do {
                         System.out.println("Introdueix el codi de l'empleat (6 enters del 0 al 9):");
                         dadesMecanic[i][0] = scanner.nextLine();
@@ -152,10 +151,16 @@ public class Main {
 
                     } while (!rep);
 
-                    System.out.println("Introdueix el nom de l'empleat:");
-                    dadesMecanic [i][1] = scanner.nextLine();
-                    System.out.println("Introdueix si està lliure (escriu \"lliure\") o ocupat (escriu \"ocupat\")");
-                    dadesMecanic [i][2] = scanner.nextLine();
+                    // Introducció del nom i la disponibilitat de l'empleat sense permetre que els camps quedin en blanc.
+                    do {
+                        System.out.println("Introdueix el nom de l'empleat:");
+                        dadesMecanic [i][1] = scanner.nextLine();
+                    } while (dadesMecanic[i][1].isEmpty());
+
+                    do {
+                        System.out.println("Introdueix si està lliure (escriu \"lliure\") o ocupat (escriu \"ocupat\")");
+                        dadesMecanic [i][2] = scanner.nextLine();
+                    } while (dadesMecanic[i][2].isEmpty());
 
                     break;
 
@@ -173,34 +178,34 @@ public class Main {
 
     }
 
+
     /**
      * Aquest mètode serveix per donar d'alta noves reparacions,
      * guardant les dades necessaries de cada una i oferint a l'usuari quin vehicle vol reparar.
      *
-     * @param novesRep
+     * @param novesRep array per guardar les dades de les noves reparacions.
      * @param vehicle array amb les dades dels vehicles donats d'alta (en necessitem la matrícula).
      * @param mecanics array amb les dades dels empleat donat d'alta (en necessitem el nº d'empleat).
      *
      * @return un array amb les dades de les reparacions (matrícula del vehicle, nº de l'empleat que l'està
      * reparant i l'estat de la reparació).
      */
-    public static String[][] novaRep(String[][] novesRep, String[][] vehicle, String[][] mecanics) {
+    public static String[][] case4(String[][] novesRep, String[][] vehicle, String[][] mecanics) {
 
         Scanner scanner = new Scanner(System.in);
 
-        boolean rep = false;
-        boolean valorCorrecte;
-        int numLlistaMat;
-        boolean dispoMeca = false;
+        boolean valorCorrecte; // Variable per saber si l'usuari introdueix un valor de la llista de matrícules o vol tornar al menú principal.
+        int numLlistaMat; // Número ordinal de la llista de matrícules.
+        boolean dispoMeca = false; // Booleà que indica la disponibilitat del mecànic i que ajuda a definir l'estat de la reparació.
         int limit = 0;
 
+        // Bucle per mostrar les matrícules dels vehicles donats d'alta.
         for (int i = 0; i < 100; i++) {
 
             if (vehicle[i][0] == null) {
                 break;
             } else {
                 System.out.println((i + 1) + ": " + vehicle[i][0]);
-
                 limit = i + 1;
             }
 
@@ -215,17 +220,21 @@ public class Main {
 
             numLlistaMat = scanner.nextInt();
 
+            // El codi s'executa si l'usuari selecciona una matrícula existent.
             if (numLlistaMat > 0 && numLlistaMat <= limit) {
 
+                // Bucle per omplir el número d'empleat i l'estat de la reparació.
                 for (int i = 0; i < 100; i++) {
 
-                    if (novesRep[i][0] != null) {
+                    if (novesRep[i][0] == null) {
 
+                        // Omple el primer camp de la matrícula que estigui buit amb la matrícula existent seleccionada.
                         novesRep[i][0] = vehicle[numLlistaMat - 1][0];
 
                         for (int j = 0; j < 100; j++) {
 
-                            if (mecanics[j][2] == "lliure") {
+                            // Defineix l'estat de la reparació en funció dels mecànics disponibles.
+                            if (mecanics[j][2].equals("lliure")) {
 
                                 novesRep[i][1] = mecanics[j][0];
                                 novesRep[i][2] = "En curs";
@@ -245,7 +254,6 @@ public class Main {
                         break;
                     }
 
-
                 }
 
             }
@@ -257,19 +265,21 @@ public class Main {
     }
 
     /**
+     * Aquest mètode serveix per donar d'alta nous clients,
+     * fent que l'usuari introdueixi les dades necessàries.
      *
-     *
-     * @param client
-     * @return
+     * @param client array per guardar les dades dels clients.
+     * @return l'array amb les dades dels clients (DNI i nom del client).
      */
     public static String[][] case1(String[][] client){
         Scanner escanner = new Scanner(System.in);
-        boolean rep = true;
+        boolean rep = true; // Booleà per definir si el DNI del client existeix prèviament o no.
 
 
         for (int i=0; i<100; i++){
             if (client[i][0] == null && client[i][1] == null){
 
+                // Bucle per introduïr el DNI del nou client sempre que aquest no existeixi prèviament.
                 do{
                     System.out.println("Introdueix el DNI del client:");
                     client[i][0] = escanner.nextLine();
@@ -289,6 +299,7 @@ public class Main {
 
                 }while (!rep);
 
+                // Bucle per introduïr el nom del client, sense permetre que es quedi en blanc.
                 do{
                     System.out.println("Introdueix el nom del client:");
                     client[i][1] = escanner.nextLine();
@@ -302,11 +313,20 @@ public class Main {
         return client;
     }
 
+    /**
+     * Aquest mètode serveix per donar d'alta nous vehicles,
+     * l'usuari n'introduirà les dades després de seleccionar el DNI corresponent.
+     *
+     * @param vehicle array per guardar les dades dels vehicles.
+     * @param client l'array amb les dades dels clients, necessari per a obtenir el seu DNI.
+     * @return l'array amb les dades dels vehicles donats d'alta (matrícula, model del cotxe i DNI del client).
+     */
     public static String[][] case3(String[][] vehicle, String[][] client) {
         Scanner escanner = new Scanner(System.in);
-        boolean rep = true;
+        boolean rep = true; // Variable usada per no repetir matrícules existents.
         int limit = 0;
 
+        // Bucle per imprimir els DNIs existents.
         for (int i = 0; i < 100; i++){
             if (client[i][0] == null){
                 break;
@@ -325,13 +345,17 @@ public class Main {
         if (valorCorrecte){
             int ndni = escanner.nextInt();
 
+            // El codi s'executa si l'usuari ha seleccionat un DNI existent.
             if (ndni > 0 && ndni <= limit){
 
                 for (int i = 0; i < 100; i++) {
                     if (vehicle[i][0] == null && vehicle[i][1] == null && vehicle[i][2] == null) {
+
+                        // Introducció d'una nova matrícula sempre que aquesta no existeixi prèviament.
                         do{
-                            System.out.print("Introdueix la matrícula del vehicle:");
+                            System.out.println("Introdueix la matrícula del vehicle:");
                             vehicle[i][0] = escanner.nextLine();
+
 
                             if (i != 0) {
                                 for (int j = 0; j < 100; j++) {
@@ -347,6 +371,7 @@ public class Main {
                             }
                         }while (!rep || vehicle[i][0].isEmpty());
 
+                        // Introducció del model del vehicle sense permetre deixar el camp en blanc.
                         do{
                             System.out.println("Introdueix el model del vehicle:");
                             vehicle[i][1] = escanner.nextLine();
@@ -363,4 +388,9 @@ public class Main {
         }
         return vehicle;
     }
+
+
+
+
+
 }
