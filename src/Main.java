@@ -12,7 +12,10 @@ public class Main {
          
     }
 
-
+    /**
+     * Aquest mètode mostra el menú inicial i permet a l'usuari seleccionar les diferents
+     * accions que ofereix el programa.
+     */
     public void init(){
         int menuItem = 0;
         int sum = 0;
@@ -110,7 +113,12 @@ public class Main {
 
 
     /**
-     * @return l'array amb les dades dels mecànics
+     * Aquest mètode serveix per donar d'alta nous empleats (mecànics),
+     * serveix per guardar les dades necessàries de cada mecànic.
+     *
+     * @param dadesMecanic
+     *
+     * @return l'array amb les dades dels mecànics (nº d'empleat, nom i disponibilitat).
      */
     public static String[][] altaMeca(String[][] dadesMecanic) {
 
@@ -165,6 +173,17 @@ public class Main {
 
     }
 
+    /**
+     * Aquest mètode serveix per donar d'alta noves reparacions,
+     * guardant les dades necessaries de cada una i oferint a l'usuari quin vehicle vol reparar.
+     *
+     * @param novesRep
+     * @param vehicle array amb les dades dels vehicles donats d'alta (en necessitem la matrícula).
+     * @param mecanics array amb les dades dels empleat donat d'alta (en necessitem el nº d'empleat).
+     *
+     * @return un array amb les dades de les reparacions (matrícula del vehicle, nº de l'empleat que l'està
+     * reparant i l'estat de la reparació).
+     */
     public static String[][] novaRep(String[][] novesRep, String[][] vehicle, String[][] mecanics) {
 
         Scanner scanner = new Scanner(System.in);
@@ -236,8 +255,13 @@ public class Main {
         return novesRep;
 
     }
-    //insert code here
 
+    /**
+     *
+     *
+     * @param client
+     * @return
+     */
     public static String[][] case1(String[][] client){
         Scanner escanner = new Scanner(System.in);
         boolean rep = true;
