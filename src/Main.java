@@ -19,6 +19,7 @@ public class Main {
         int sum = 0;
 
         String [][] mecanics = new String[100][3];
+        String [][] reparacions = new String[100][3];
 
         do {
             System.out.println("TALLER DE REPARACIÓ DE VEHICLES");
@@ -60,8 +61,16 @@ public class Main {
                     case 4:
                         System.out.println("Has triat crear fitxa de nova reparació....");
 
-                        String[][] reparacions = new String[100][3];
+                        String[][] reparacions1 = new String[100][3];
 
+                        for (int i = 0; i < 100; i++) {
+                            for (int j = 0; j < 3; j++) {
+
+                                System.out.print(reparacions1[i][j] + "   ");
+                                reparacions [i][j] = reparacions1 [i][j];
+                            }
+                            System.out.println();
+                        }
 
                         break;
                     case 5:
@@ -137,14 +146,14 @@ public class Main {
 
     }
 
-    public static void novaRep(String[][] reparacions, String[][] vehicle, String[][] mecanics) {
+    public static String[][] novaRep(String[][] novesRep, String[][] vehicle, String[][] mecanics) {
 
         Scanner scanner = new Scanner(System.in);
 
         boolean rep = false;
         boolean valorCorrecte;
         int numLlistaMat;
-        boolean aiuda = false;
+        boolean dispoMeca = false;
         int limit = 0;
 
         for (int i = 0; i < 100; i++) {
@@ -172,25 +181,27 @@ public class Main {
 
                 for (int i = 0; i < 100; i++) {
 
-                    if (reparacions[i][0] != null) {
+                    if (novesRep[i][0] != null) {
 
-                        reparacions[i][0] = vehicle[numLlistaMat - 1][0];
+                        novesRep[i][0] = vehicle[numLlistaMat - 1][0];
 
                         for (int j = 0; j < 100; j++) {
 
                             if (mecanics[j][2] == "lliure") {
 
-                                reparacions[i][1] = mecanics[j][0];
-                                reparacions[i][2] = "En curs";
+                                novesRep[i][1] = mecanics[j][0];
+                                novesRep[i][2] = "En curs";
 
-                                aiuda = true;
+                                mecanics[j][2] = "ocupat";
+
+                                dispoMeca = true;
                                 break;
                             }
 
                         }
 
-                        if (!aiuda) {
-                            reparacions[i][2] = "Oberta";
+                        if (!dispoMeca) {
+                            novesRep[i][2] = "Oberta";
                         }
 
                         break;
@@ -203,7 +214,7 @@ public class Main {
 
         }
 
-
+        return novesRep;
 
     }
     //insert code here
